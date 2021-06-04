@@ -1,0 +1,25 @@
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2c2c2c;
+  color: #ddd;
+
+  .header-title {
+    margin-left: 1.5rem;
+  }
+
+  .nav-links {
+    margin-right: 1.5rem;
+
+    a {
+      color: #ddd;
+      text-decoration: none;
+      margin: 0 1rem;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
