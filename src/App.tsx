@@ -1,11 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import { HomePage } from './pages/home/home.page';
-import { AboutPage } from './pages/about/about.page';
-import { LoginPage } from './pages/login/login.page';
-import { PostsPage } from './pages/posts/posts.page';
-import { RegisterPage } from './pages/register/register.page';
+import UsersPage from './pages/users/users.page';
+import PostsPage from './pages/posts/posts.page';
+import HomePage from './pages/home/home.page';
+import AboutPage from './pages/about/about.page';
+import LoginPage from './pages/login/login.page';
+import RegisterPage from './pages/register/register.page';
 
 import { Header } from './components/header/header.component';
 
@@ -20,6 +21,7 @@ function App() {
         <Route path="/about" component={AboutPage} />
         <Route path="/login" component={LoginPage} />
         <Route path="/register" component={RegisterPage} />
+        <Route path="/users" component={UsersPage} />
         <Route path="/posts" component={PostsPage} />
       </Router>
     </div>

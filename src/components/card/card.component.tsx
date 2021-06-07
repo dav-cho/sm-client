@@ -1,20 +1,18 @@
-import { Post, User } from '../../models/api.models';
-
 import './card.styles.scss';
 
-type CardProps = {
-  postData?: Post;
+type CardProps<apiItemData> = {
+  itemData: apiItemData;
+  properties: (keyof apiItemData)[];
 };
-export const Card = ({ postData }: CardProps) => {
+
+export const Card = <T,>({ itemData, properties }: CardProps<T>) => {
   return (
     <div className="card-container">
-      {postData && (
-        <>
-          <h3>title: {postData.title}</h3>
-          <h4>author id: {postData.author}</h4>
-          <p>{postData.body}</p>
-        </>
-      )}
+      {properties.map((property, index) => (
+        <h3 key={index}>
+          {property}: {itemData[property]}
+        </h3>
+      ))}
     </div>
   );
 };

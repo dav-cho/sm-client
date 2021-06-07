@@ -1,16 +1,20 @@
-import { Post, User } from '../../models/api.models';
-
 import { Card } from '../card/card.component';
 
-type CardListProps = {
-  data: any[];
+type CardListProps<apiListData> = {
+  listData: apiListData[];
+  properties: (keyof apiListData)[];
 };
 
-export const CardList = ({ data }: CardListProps) => {
+export const CardList = <dataType,>({
+  listData,
+  properties,
+}: CardListProps<dataType>) => {
+  console.log('~ listData', listData);
+
   return (
     <div className="card-list-container">
-      {data.map((item: any, index: number) => (
-        <Card key={index} postData={item} />
+      {listData.map((item, index) => (
+        <Card key={index} itemData={item} properties={properties} />
       ))}
     </div>
   );

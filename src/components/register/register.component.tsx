@@ -6,36 +6,40 @@ import { postUserData } from '../../utils/api.utils';
 import { FormInput } from '../form-input/form-input.component';
 import { FormButton } from '../form-button/form-button';
 
-import './login.styles.scss';
+import './register.styles.scss';
 
 type InputType = {
   [input: string]: string;
 };
 
-const initialLoginState = {
+const initialFormState = {
   email: '',
+  username: '',
   password: '',
+  confirm_password: '',
 };
 
-export const Login = () => {
-  const [loginState, setLoginState] = useState<InputType>(initialLoginState);
+export const Register = () => {
+  const [formState, setFormState] = useState<InputType>(initialFormState);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.currentTarget;
 
-    setLoginState({ ...loginState, [id]: value });
+    setFormState({ ...formState, [id]: value });
   };
 
   useEffect(() => {
-    console.log('~ loginState', loginState);
-  }, [loginState]);
+    console.log('~ formState', formState);
+  }, [formState]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // const { email, password } = e.target;
 
-    postUserData('auth/login', loginState);
-    // setLoginState(initialLoginState);
+    postUserData('register', formState).then(newUser =>
+      console.log('~ newUser', newUser)
+    );
+    // console.log('~ formState', formState);
+    // setFormState(initialFormState);
   };
 
   return (
@@ -45,14 +49,28 @@ export const Login = () => {
           label="Email"
           id="email"
           type="email"
-          value={loginState.email}
+          value={formState.email}
+          onChange={handleChange}
+        />
+        <FormInput
+          label="Username"
+          id="username"
+          type="text"
+          value={formState.username}
           onChange={handleChange}
         />
         <FormInput
           label="Password"
           id="password"
           type="password"
-          value={loginState.password}
+          value={formState.password}
+          onChange={handleChange}
+        />
+        <FormInput
+          label="Confirm Password"
+          id="confirm_password"
+          type="password"
+          value={formState.confirm_password}
           onChange={handleChange}
         />
         <FormButton type="submit" label="SUBMIT" />
