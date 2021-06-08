@@ -1,13 +1,8 @@
 import axios from 'axios';
 
-const BASE_URL = process.env.REACT_APP_LOCAL_URL;
+import { userEndPoints, apiEndPoints } from '../types/api.types';
 
-type userEndPoint =
-  | 'register'
-  | 'login'
-  | 'logout'
-  | 'auth/login'
-  | 'auth/refresh';
+const BASE_URL = process.env.REACT_APP_LOCAL_URL;
 
 export const fetchUserData = async () => {
   try {
@@ -20,7 +15,7 @@ export const fetchUserData = async () => {
   }
 };
 
-export const postUserData = async (endPoint: userEndPoint, formData: {}) => {
+export const postUserData = async (endPoint: userEndPoints, formData: {}) => {
   try {
     const res = await axios.post(`${BASE_URL}/accounts/${endPoint}/`, formData);
     const data = await res.data;
@@ -31,9 +26,7 @@ export const postUserData = async (endPoint: userEndPoint, formData: {}) => {
   }
 };
 
-type apiEndPoint = 'users' | 'posts' | 'reactions' | 'comments';
-
-export const fetchApiData = async (endPoint: apiEndPoint) => {
+export const fetchApiData = async (endPoint: apiEndPoints) => {
   try {
     const res = await axios.get(`${BASE_URL}/${endPoint}/`);
     const apiData = await res.data;
@@ -44,7 +37,7 @@ export const fetchApiData = async (endPoint: apiEndPoint) => {
   }
 };
 
-export const postApiData = async (endPoint: apiEndPoint, formData: {}) => {
+export const postApiData = async (endPoint: apiEndPoints, formData: {}) => {
   try {
     await axios.post(`${BASE_URL}/${endPoint}/`, formData);
     // await axios({

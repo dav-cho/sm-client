@@ -10,3 +10,7 @@ export interface Post {
   title: string;
   body: string;
 }
+
+export type userEndPoints = 'register';
+
+export type apiEndPoints = 'users' | 'posts' | 'reactions' | 'comments';

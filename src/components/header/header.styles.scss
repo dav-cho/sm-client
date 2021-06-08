@@ -10,6 +10,8 @@
   }
 
   .nav-links {
+    display: flex;
+    align-items: center;
     margin-right: 0.5rem;
 
     a {

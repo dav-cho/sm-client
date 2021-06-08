@@ -1,7 +1,8 @@
-// import { useReducer } from 'react';
 import { useState, useEffect } from 'react';
+// import { useReducer } from 'react';
+import { useHistory } from 'react-router-dom';
 
-import { postUserData } from '../../utils/api.utils';
+import { postUserAuth, storeTokens } from '../../utils/auth.utils';
 import { useUserContext } from '../../contexts/user.context';
 
 import { FormInput } from '../form-input/form-input.component';
@@ -13,39 +14,40 @@ type InputType = {
   [input: string]: string;
 };
 
-const initialLoginState = {
+const initialFormState = {
   email: '',
   password: '',
 };
 
 export const Login = () => {
-  const [loginFormState, setLoginFormState] =
-    useState<InputType>(initialLoginState);
+  const [formState, setFormState] = useState<InputType>(initialFormState);
   const { setLoggedIn } = useUserContext();
+  const { push } = useHistory();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.currentTarget;
 
-    setLoginFormState({ ...loginFormState, [id]: value });
+    setFormState({ ...formState, [id]: value });
   };
 
   useEffect(() => {
-    console.log('~ loginState', loginFormState);
-  }, [loginFormState]);
+    console.log('~ loginState', formState);
+  }, [formState]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // const { email, password } = e.target;
 
-    postUserData('auth/login', loginFormState).then(tokens => {
-      console.log('~ tokens', tokens);
-      localStorage.setItem('access', tokens.access);
-      localStorage.setItem('refresh', tokens.refresh);
+    postUserAuth('login', formState).then(() => {
       setLoggedIn(true);
     });
 
-    postUserData('login', loginFormState);
-    // setLoginState(initialLoginState);
+    postUserAuth('token', formState).then(tokens => {
+      console.log('~ tokens', tokens);
+      storeTokens(tokens);
+    });
+
+    // setFormState(initialFormState);
+    // push('/welcome');
   };
 
   return (
@@ -55,14 +57,14 @@ export const Login = () => {
           label="Email"
           id="email"
           type="email"
-          value={loginFormState.email}
+          value={formState.email}
           onChange={handleChange}
         />
         <FormInput
           label="Password"
           id="password"
           type="password"
-          value={loginFormState.password}
+          value={formState.password}
           onChange={handleChange}
         />
         <FormButton type="submit" label="SUBMIT" />

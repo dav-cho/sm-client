@@ -1,20 +1,14 @@
 import { Link } from 'react-router-dom';
 
 import { useThemeContext } from '../../contexts/theme.context';
-import { useUserContext } from '../../contexts/user.context';
-import { postUserData } from '../../utils/api.utils';
+
+import { LoginLogoutButton } from '../loginin-logout-button/login-logout-button.component';
+import { ToggleThemeButton } from '../toggle-theme-button/toggle-theme-button.components';
 
 import './header.styles.scss';
 
 export const Header = () => {
-  const { headerTheme, toggleTheme } = useThemeContext();
-  const { loggedIn, setLoggedIn } = useUserContext();
-
-  const handleClick = () => {
-    postUserData('logout', {});
-    setLoggedIn(false);
-    localStorage.clear();
-  };
+  const { headerTheme } = useThemeContext();
 
   const navLinks = [
     { path: '/users', name: 'users' },
@@ -37,14 +31,9 @@ export const Header = () => {
             </Link>
           );
         })}
-        {loggedIn ? (
-          <Link to="/login" onClick={handleClick}>
-            logout
-          </Link>
-        ) : (
-          <Link to="/login">login</Link>
-        )}
-        <button onClick={toggleTheme}>toggle theme</button>
+        <LoginLogoutButton />
+        {/* <button onClick={toggleTheme}>toggle theme</button> */}
+        <ToggleThemeButton />
       </div>
     </div>
   );

@@ -19,6 +19,6 @@ export const FormInput = ({
     <label htmlFor={id} className="form-input-label">
       {label}:
     </label>
-    <input id={id} {...otherProps} onChange={onChange} className="form-input" />
+    <input id={id} value={value} {...otherProps} onChange={onChange} className="form-input" />
   </div>
 );

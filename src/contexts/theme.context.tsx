@@ -19,12 +19,14 @@ const themes: Themes = {
 };
 
 type ThemeContextProps = {
+  themes: Themes;
   theme: Theme;
   headerTheme: Theme;
   toggleTheme?: () => void;
 };
 
 const ThemeContext = createContext<ThemeContextProps>({
+  themes,
   theme: themes.light,
   headerTheme: themes.dark,
   toggleTheme: () => {},
@@ -46,7 +48,7 @@ export const ThemeContextProvider: React.FC = ({ children }) => {
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, headerTheme, toggleTheme }}>
+    <ThemeContext.Provider value={{ themes, theme, headerTheme, toggleTheme }}>
       {children}
     </ThemeContext.Provider>
   );

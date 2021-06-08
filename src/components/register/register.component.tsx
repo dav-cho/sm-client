@@ -1,7 +1,10 @@
 // import { useReducer } from 'react';
 import { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
+import { useUserContext } from '../../contexts/user.context';
 import { postUserData } from '../../utils/api.utils';
+import { postUserAuth, storeTokens } from '../../utils/auth.utils';
 
 import { FormInput } from '../form-input/form-input.component';
 import { FormButton } from '../form-button/form-button';
@@ -21,6 +24,8 @@ const initialFormState = {
 
 export const Register = () => {
   const [formState, setFormState] = useState<InputType>(initialFormState);
+  const { setLoggedIn } = useUserContext();
+  const { push } = useHistory();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.currentTarget;
@@ -32,14 +37,24 @@ export const Register = () => {
     console.log('~ formState', formState);
   }, [formState]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    postUserData('register', formState).then(newUser =>
+    await postUserData('register', formState).then(newUser =>
       console.log('~ newUser', newUser)
     );
-    // console.log('~ formState', formState);
-    // setFormState(initialFormState);
+
+    await postUserAuth('login', formState).then(() => {
+      setLoggedIn(true);
+    });
+
+    await postUserAuth('token', formState).then(tokens => {
+      console.log('~ tokens', tokens);
+      storeTokens(tokens);
+    });
+
+    setFormState(initialFormState);
+    push('/welcome');
   };
 
   return (
