@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 
 import { postUserData } from '../../utils/api.utils';
+import { useUserContext } from '../../contexts/user.context';
 
 import { FormInput } from '../form-input/form-input.component';
 import { FormButton } from '../form-button/form-button';
@@ -18,23 +19,32 @@ const initialLoginState = {
 };
 
 export const Login = () => {
-  const [loginState, setLoginState] = useState<InputType>(initialLoginState);
+  const [loginFormState, setLoginFormState] =
+    useState<InputType>(initialLoginState);
+  const { setLoggedIn } = useUserContext();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.currentTarget;
 
-    setLoginState({ ...loginState, [id]: value });
+    setLoginFormState({ ...loginFormState, [id]: value });
   };
 
   useEffect(() => {
-    console.log('~ loginState', loginState);
-  }, [loginState]);
+    console.log('~ loginState', loginFormState);
+  }, [loginFormState]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // const { email, password } = e.target;
 
-    postUserData('auth/login', loginState);
+    postUserData('auth/login', loginFormState).then(tokens => {
+      console.log('~ tokens', tokens);
+      localStorage.setItem('access', tokens.access);
+      localStorage.setItem('refresh', tokens.refresh);
+      setLoggedIn(true);
+    });
+
+    postUserData('login', loginFormState);
     // setLoginState(initialLoginState);
   };
 
@@ -45,14 +55,14 @@ export const Login = () => {
           label="Email"
           id="email"
           type="email"
-          value={loginState.email}
+          value={loginFormState.email}
           onChange={handleChange}
         />
         <FormInput
           label="Password"
           id="password"
           type="password"
-          value={loginState.password}
+          value={loginFormState.password}
           onChange={handleChange}
         />
         <FormButton type="submit" label="SUBMIT" />

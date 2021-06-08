@@ -2,7 +2,12 @@ import axios from 'axios';
 
 const BASE_URL = process.env.REACT_APP_LOCAL_URL;
 
-type userEndPoint = 'register' | 'auth/login' | 'auth/refresh';
+type userEndPoint =
+  | 'register'
+  | 'login'
+  | 'logout'
+  | 'auth/login'
+  | 'auth/refresh';
 
 export const fetchUserData = async () => {
   try {
@@ -18,9 +23,9 @@ export const fetchUserData = async () => {
 export const postUserData = async (endPoint: userEndPoint, formData: {}) => {
   try {
     const res = await axios.post(`${BASE_URL}/accounts/${endPoint}/`, formData);
-    const newUser = await res.data;
+    const data = await res.data;
 
-    return newUser;
+    return data;
   } catch (err) {
     console.log('~ err', err);
   }

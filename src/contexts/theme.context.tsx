@@ -20,11 +20,13 @@ const themes: Themes = {
 
 type ThemeContextProps = {
   theme: Theme;
+  headerTheme: Theme;
   toggleTheme?: () => void;
 };
 
 const ThemeContext = createContext<ThemeContextProps>({
   theme: themes.light,
+  headerTheme: themes.dark,
   toggleTheme: () => {},
 });
 
@@ -32,15 +34,19 @@ export const useThemeContext = () => useContext(ThemeContext);
 
 export const ThemeContextProvider: React.FC = ({ children }) => {
   const [theme, setTheme] = useState(themes.light);
+  const [headerTheme, setHeaderTheme] = useState(themes.dark);
 
   const toggleTheme = () => {
     setTheme(prevTheme =>
       prevTheme === themes.light ? themes.dark : themes.light
     );
+    setHeaderTheme(prevHeaderTheme =>
+      prevHeaderTheme === themes.dark ? themes.light : themes.dark
+    );
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme, headerTheme, toggleTheme }}>
       {children}
     </ThemeContext.Provider>
   );
