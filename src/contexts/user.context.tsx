@@ -1,8 +1,8 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 
-// import { checkSignInStatus, authenticateUser } from '../utils/auth.utils';
+// import { checkSignInStatus, authenticatedUser } from '../utils/auth.utils';
 import { checkSignInStatus } from '../utils/auth.utils';
-import { User } from '../types/api.types';
+import { User } from '../types/index.types';
 
 type UserContextProps = {
   user?: User | null;
@@ -26,8 +26,10 @@ export const UserContextProvider: React.FC = ({ children }) => {
   }, [loggedIn]);
 
   // useEffect(() => {
-  //   authenticateUser();
-  // }, [])
+  //   authenticatedUser().then(accessToken => {
+  //     console.log('authenticateUser user.context ~ accessToken', accessToken);
+  //   });
+  // }, []);
 
   return (
     <UserContext.Provider value={{ loggedIn, setLoggedIn }}>

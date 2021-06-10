@@ -1,5 +1,7 @@
 import { createContext, useContext, useState } from 'react';
 
+// import { Theme, Themes, themes } from './themes.styles';
+
 type Theme = React.CSSProperties;
 
 type Themes = {

@@ -9,7 +9,7 @@ export const CardList = <dataType,>({
   listData,
   properties,
 }: CardListProps<dataType>) => {
-  console.log('~ listData', listData);
+  // console.log('~ listData', listData);
 
   return (
     <div className="card-list-container">

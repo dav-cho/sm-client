@@ -1,6 +1,6 @@
 import { Register } from '../../components/register/register.component';
 
-const LoginPage = () => {
+const RegisterPage = () => {
   return (
     <>
       <h1>register page</h1>
@@ -9,4 +9,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default RegisterPage;

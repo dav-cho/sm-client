@@ -2,18 +2,14 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
+import { RegisterFormData } from '../../types/index.types';
 import { useUserContext } from '../../contexts/user.context';
-import { postUserData } from '../../utils/api.utils';
-import { postUserAuth, storeTokens } from '../../utils/auth.utils';
+import { registerUser, loginUser } from '../../utils/auth.utils';
 
 import { FormInput } from '../form-input/form-input.component';
 import { FormButton } from '../form-button/form-button';
 
 import './register.styles.scss';
-
-type InputType = {
-  [input: string]: string;
-};
 
 const initialFormState = {
   email: '',
@@ -23,7 +19,8 @@ const initialFormState = {
 };
 
 export const Register = () => {
-  const [formState, setFormState] = useState<InputType>(initialFormState);
+  const [formState, setFormState] =
+    useState<RegisterFormData>(initialFormState);
   const { setLoggedIn } = useUserContext();
   const { push } = useHistory();
 
@@ -34,26 +31,21 @@ export const Register = () => {
   };
 
   useEffect(() => {
-    console.log('~ formState', formState);
+    console.log('register.component ~ formState', formState);
   }, [formState]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const { email, password } = formState;
 
-    await postUserData('register', formState).then(newUser =>
-      console.log('~ newUser', newUser)
-    );
+    const user = await registerUser(formState);
+    console.log('register.component ~ user', user);
 
-    await postUserAuth('login', formState).then(() => {
-      setLoggedIn(true);
-    });
+    if (!user) return;
 
-    await postUserAuth('token', formState).then(tokens => {
-      console.log('~ tokens', tokens);
-      storeTokens(tokens);
-    });
+    await loginUser({ email, password });
 
-    setFormState(initialFormState);
+    setLoggedIn(true);
     push('/welcome');
   };
 

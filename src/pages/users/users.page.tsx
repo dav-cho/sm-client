@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
-import { User } from '../../types/api.types';
-import { fetchUserData } from '../../utils/api.utils';
+import { User } from '../../types/index.types';
+import { fetchUsers } from '../../utils/user.utils';
 
 import { CardList } from '../../components/card-list/card-list.component';
 import { AccessDenied } from '../../components/access-denied/access-denied.component';
@@ -10,7 +10,9 @@ const UsersPage = () => {
   const [users, setUsers] = useState<User[]>([]);
 
   useEffect(() => {
-    fetchUserData().then(usersData => {
+    fetchUsers().then(usersData => {
+      console.log('~ usersData', usersData);
+
       setUsers(usersData);
     });
   }, []);
@@ -20,7 +22,7 @@ const UsersPage = () => {
       {users ? (
         <CardList
           listData={users}
-          properties={['email', 'username', 'password']}
+          properties={['email', 'username', 'last_login', 'date_joined']}
         />
       ) : (
         <AccessDenied />

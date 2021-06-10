@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { Post } from '../../types/api.types';
+import { Post } from '../../types/index.types';
 import { fetchApiData } from '../../utils/api.utils';
 
 import { CardList } from '../../components/card-list/card-list.component';

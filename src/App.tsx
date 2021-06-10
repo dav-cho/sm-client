@@ -1,6 +1,8 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
+// import { ProtectedRoute } from './components/protected-route/protected-route.component';
+
 import UsersPage from './pages/users/users.page';
 import PostsPage from './pages/posts/posts.page';
 import HomePage from './pages/home/home.page';
@@ -14,10 +16,21 @@ import { Header } from './components/header/header.component';
 
 import './App.scss';
 
+// const routes = [
+//   { path: '/users', component: UsersPage, isProtected: true },
+//   { path: '/posts', component: PostsPage, isProtected: false },
+//   { path: '/about', component: AboutPage, isProtected: false },
+//   { path: '/register', component: RegisterPage, isProtected: false },
+//   { path: '/welcome', component: WelcomePage, isProtected: false },
+//   { path: '/login', component: LoginPage, isProtected: false },
+//   { path: '/logout', component: LogoutPage, isProtected: false },
+// ];
+
 function App() {
   return (
     <div className="App">
       <Header />
+      {/* <ProtectedRoute path="/users" component={UsersPage} isProtected={true} /> */}
       <Route path="/users" component={UsersPage} />
       <Route path="/posts" component={PostsPage} />
       <Route exact path="/" component={HomePage} />
