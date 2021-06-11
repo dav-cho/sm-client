@@ -1,17 +1,18 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 
-// import { checkSignInStatus, authenticatedUser } from '../utils/auth.utils';
-import { checkSignInStatus } from '../utils/auth.utils';
 import { User } from '../types/index.types';
+import { authenticateUser, checkLoginStatus } from '../utils/auth.utils';
 
 type UserContextProps = {
-  user?: User | null;
+  user: User | null;
+  setUser: React.Dispatch<User | null>;
   loggedIn: boolean;
   setLoggedIn: React.Dispatch<boolean>;
 };
 
 const UserContext = createContext<UserContextProps>({
   user: null,
+  setUser: () => {},
   loggedIn: false,
   setLoggedIn: () => {},
 });
@@ -19,20 +20,25 @@ const UserContext = createContext<UserContextProps>({
 export const useUserContext = () => useContext(UserContext);
 
 export const UserContextProvider: React.FC = ({ children }) => {
-  const [loggedIn, setLoggedIn] = useState(checkSignInStatus());
+  const [user, setUser] = useState<User | null>(null);
+  const [loggedIn, setLoggedIn] = useState(checkLoginStatus());
+
+  const checkUserStatus = async () => {
+    const user = await authenticateUser();
+
+    if (user) setUser(user);
+  };
 
   useEffect(() => {
-    console.log('~ loggedIn', loggedIn);
-  }, [loggedIn]);
+    checkUserStatus();
+  }, []);
 
-  // useEffect(() => {
-  //   authenticatedUser().then(accessToken => {
-  //     console.log('authenticateUser user.context ~ accessToken', accessToken);
-  //   });
-  // }, []);
+  useEffect(() => {
+    console.log('~ user from user context', user);
+  }, [user]);
 
   return (
-    <UserContext.Provider value={{ loggedIn, setLoggedIn }}>
+    <UserContext.Provider value={{ user, setUser, loggedIn, setLoggedIn }}>
       {children}
     </UserContext.Provider>
   );

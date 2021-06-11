@@ -21,7 +21,7 @@ const initialFormState = {
 export const Register = () => {
   const [formState, setFormState] =
     useState<RegisterFormData>(initialFormState);
-  const { setLoggedIn } = useUserContext();
+  const { setUser, setLoggedIn } = useUserContext();
   const { push } = useHistory();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,15 +36,15 @@ export const Register = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const { email, password } = formState;
 
+    const { email, password } = formState;
     const user = await registerUser(formState);
-    console.log('register.component ~ user', user);
+    console.log('register success ~ user', user);
 
     if (!user) return;
 
     await loginUser({ email, password });
-
+    setUser(user);
     setLoggedIn(true);
     push('/welcome');
   };

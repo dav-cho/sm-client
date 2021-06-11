@@ -11,6 +11,7 @@ import RegisterPage from './pages/register/register.page';
 import WelcomePage from './pages/welcome/welcome.page';
 import LoginPage from './pages/login/login.page';
 import LogoutPage from './pages/logout/logout.page';
+import ErrorPage from './pages/error/errorpage';
 
 import { Header } from './components/header/header.component';
 
@@ -39,6 +40,7 @@ function App() {
       <Route path="/welcome" component={WelcomePage} />
       <Route path="/login" component={LoginPage} />
       <Route path="/logout" component={LogoutPage} />
+      <Route path="/error" component={ErrorPage} />
     </div>
   );
 }

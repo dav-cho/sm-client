@@ -1,16 +1,12 @@
 import { axiosUser } from './api-config.utils';
-// import { authenticatedUser } from './auth.utils';
 
 export const fetchUsers = async () => {
   try {
-    const res = await axiosUser.get('');
-    console.log('fetchUserData ~ res', res);
-    const data = await res.data;
+    const { data } = await axiosUser.get('');
 
     return data;
   } catch (err) {
-    console.log('fetchUserData ~ err', err);
-    console.log('fetchUserData ~ err.response.headers', err.response.headers);
+    console.log('~ err fetchUsers from user.utils', err);
   }
 };
 
@@ -21,5 +17,16 @@ export const fetchUser = async () => {
     return data;
   } catch (err) {
     console.log('fetchUser ~ err', err);
+  }
+};
+
+export const fetchUserData = async (accessToken: string) => {
+  try {
+    const { data } = await axiosUser.post('getuser/', { access: accessToken });
+
+    return data;
+  } catch (err) {
+    console.log('~ err', err);
+    return null;
   }
 };

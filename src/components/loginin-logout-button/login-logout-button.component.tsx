@@ -1,13 +1,10 @@
 import { Link, useHistory } from 'react-router-dom';
 
 import { useUserContext } from '../../contexts/user.context';
-// import { postUserAuth, logoutUser } from '../../utils/auth.utils';
 import { logoutUser } from '../../utils/auth.utils';
 
-import {} from '../flash-error/flash-error.component';
-
 export const LoginLogoutButton = () => {
-  const { loggedIn, setLoggedIn } = useUserContext();
+  const { setUser, loggedIn, setLoggedIn } = useUserContext();
   const { push } = useHistory();
 
   const handleClick = async () => {
@@ -15,9 +12,11 @@ export const LoginLogoutButton = () => {
 
     if (!res) return;
 
-    console.log('~ res from logout component', res);
+    setUser(null);
     setLoggedIn(false);
     push('/login');
+    // console.log('~ res from logout component', res);
+    console.log('~ SUCCESSFULLY LOGGED OUT');
   };
 
   return loggedIn ? (

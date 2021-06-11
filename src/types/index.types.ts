@@ -1,18 +1,10 @@
 export interface User {
+  id: string;
   email: string;
   username: string;
-  date_joined: string;
+  created: string;
   last_login: string;
-  password?: string;
-  // loggedIn: boolean;
 }
-
-// export interface User {
-//   email: string;
-//   username: string;
-//   password?: string;
-//   // signedIn?: boolean;
-// }
 
 export interface Post {
   author: string;
