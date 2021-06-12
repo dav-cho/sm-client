@@ -1,5 +1,5 @@
 import { useState } from 'react';
-// import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import { useUserContext } from '../../contexts/user.context';
 import { loginUser } from '../../utils/auth.utils';
@@ -22,7 +22,7 @@ const initialFormState = {
 export const Login = () => {
   const [formState, setFormState] = useState<InputType>(initialFormState);
   const { setUser, setLoggedIn } = useUserContext();
-  // const { push } = useHistory();
+  const { push } = useHistory();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.currentTarget;
@@ -45,10 +45,11 @@ export const Login = () => {
     setUser(userData.user);
     setLoggedIn(true);
     // push('/users');
+    push('/welcome');
   };
 
   return (
-    <div className="login-form-container">
+    <div className="login-container">
       <form onSubmit={handleSubmit}>
         <FormInput
           label="Email"

@@ -1,0 +1,32 @@
+.users-container {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  margin: 0 auto;
+
+  .user-container {
+    display: flex;
+    margin: 0.25rem 0;
+    padding: 1rem;
+    border: 1px solid black;
+
+    .user-title {
+      margin: auto 1rem;
+    }
+
+    .user-info {
+      margin: auto 1rem;
+    }
+
+    .user-posts {
+      display: flex;
+      flex-direction: column;
+      margin: auto 1rem;
+
+      ul {
+        list-style: none;
+        text-align: left;
+      }
+    }
+  }
+}

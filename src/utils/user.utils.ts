@@ -1,8 +1,8 @@
-import { axiosUser } from './api-config.utils';
+import { axios } from './axios-config.utils';
 
 export const fetchUsers = async () => {
   try {
-    const { data } = await axiosUser.get('');
+    const { data } = await axios.get('accounts/');
 
     return data;
   } catch (err) {
@@ -12,7 +12,7 @@ export const fetchUsers = async () => {
 
 export const fetchUser = async () => {
   try {
-    const { data } = await axiosUser.get('user');
+    const { data } = await axios.get('accounts/user');
 
     return data;
   } catch (err) {
@@ -22,7 +22,9 @@ export const fetchUser = async () => {
 
 export const fetchUserData = async (accessToken: string) => {
   try {
-    const { data } = await axiosUser.post('getuser/', { access: accessToken });
+    const { data } = await axios.post('accounts/getuser/', {
+      access: accessToken,
+    });
 
     return data;
   } catch (err) {

@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { RegisterFormData } from '../../types/index.types';
+// import { RegisterFormData } from '../../types/index.types';
 import { useUserContext } from '../../contexts/user.context';
 import { registerUser, loginUser } from '../../utils/auth.utils';
 
@@ -10,6 +10,13 @@ import { FormInput } from '../form-input/form-input.component';
 import { FormButton } from '../form-button/form-button';
 
 import './register.styles.scss';
+
+type RegisterFormData = {
+  email: string;
+  username: string;
+  password: string;
+  confirm_password: string;
+};
 
 const initialFormState = {
   email: '',
@@ -50,7 +57,7 @@ export const Register = () => {
   };
 
   return (
-    <div className="login-form-container">
+    <div className="register-container">
       <form onSubmit={handleSubmit}>
         <FormInput
           label="Email"

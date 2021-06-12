@@ -1,22 +1,26 @@
-import { axiosAuth, axiosUser } from './api-config.utils';
+import { axios } from './axios-config.utils';
 
 import { RegisterFormData } from '../types/index.types';
 import { fetchUserData } from './user.utils';
 
 // import { getUser } from './user.utils';
 
+/**
+ * token helpers
+ **/
+
 export const setTokens = (access: string, refresh: string) => {
   localStorage.setItem('access', access);
   localStorage.setItem('refresh', refresh);
-  axiosUser.defaults.headers.common.authorization = `Bearer ${access}`;
-  axiosAuth.defaults.headers.common.authorization = `Bearer ${refresh}`;
+  axios.defaults.headers.common.authorization = `Bearer ${access}`;
+  axios.defaults.headers.common.authorization = `Bearer ${refresh}`;
 };
 
 const clearTokens = () => {
   localStorage.removeItem('access');
   localStorage.removeItem('refresh');
-  axiosUser.defaults.headers.common.authorization = null;
-  axiosAuth.defaults.headers.common.authorization = null;
+  axios.defaults.headers.common.authorization = null;
+  axios.defaults.headers.common.authorization = null;
 };
 
 type GetLocalTokenProps = 'access' | 'refresh';
@@ -33,7 +37,7 @@ export const getLocalToken = (tokenType: GetLocalTokenProps) => {
 
 export const registerUser = async (formData: RegisterFormData) => {
   try {
-    const res = await axiosAuth.post('register/', formData);
+    const res = await axios.post('auth/register/', formData);
     const data = await res.data;
 
     return data;
@@ -45,7 +49,7 @@ export const registerUser = async (formData: RegisterFormData) => {
 
 export const loginUser = async (formData: {}) => {
   try {
-    const { data } = await axiosAuth.post('login/', formData);
+    const { data } = await axios.post('auth/login/', formData);
     const { access, refresh } = await data;
 
     setTokens(access, refresh);
@@ -62,7 +66,7 @@ export const logoutUser = async () => {
 
     clearTokens();
 
-    const { status, statusText } = await axiosAuth.post('logout/', {
+    const { status, statusText } = await axios.post('auth/logout/', {
       refresh: refreshToken,
     });
 
@@ -74,7 +78,7 @@ export const logoutUser = async () => {
 
 export const refreshAccessToken = async (refresh: string) => {
   try {
-    const { data } = await axiosAuth.post('refresh/', { refresh });
+    const { data } = await axios.post('auth/refresh/', { refresh });
 
     return data.access;
   } catch (err) {
@@ -83,8 +87,9 @@ export const refreshAccessToken = async (refresh: string) => {
 };
 
 /**
- * persist login status on refresh
+ * user state / login status
  **/
+
 export const checkLoginStatus = () => {
   const accessToken = localStorage.getItem('access');
   const refreshToken = localStorage.getItem('refresh');
@@ -95,7 +100,7 @@ export const checkLoginStatus = () => {
 export const checkUser = async () => {
   try {
     const accessToken = localStorage.getItem('access');
-    const { data } = await axiosUser.post('getuser/', { access: accessToken });
+    const { data } = await axios.post('auth/getuser/', { access: accessToken });
 
     return data;
   } catch (err) {
