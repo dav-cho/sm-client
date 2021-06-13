@@ -29,8 +29,8 @@ const UsersPage = () => {
         {users &&
           users.map(user => (
             <div key={user.id} className="user-container">
-              <h2 className="user-title">{user.username}</h2>
               <div className="user-info">
+                <h2 className="user-title">{user.username}</h2>
                 <p>email: {user.email}</p>
                 <p>last login: {formatDate(user.last_login)}</p>
                 <p>created: {formatDate(user.created)}</p>
@@ -50,7 +50,7 @@ const UsersPage = () => {
                   </ul>
                 ))}
               </div>
-              <div className="user-posts">
+              <div className="user-comments">
                 <strong>comments:</strong>
                 {user.comments?.map(comment => (
                   <ul key={comment.id}>

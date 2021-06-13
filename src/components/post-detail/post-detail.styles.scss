@@ -1,4 +1,4 @@
-.post-card-container {
+.post-detail-container {
   display: flex;
   flex-wrap: wrap;
   width: 90%;
@@ -10,27 +10,27 @@
     text-align: left;
   }
 
-  .post-card-info {
+  .post-detail-info {
     width: 33%;
 
-    .post-card-title {
+    .post-detail-title {
       width: 100%;
     }
   }
 
-  .post-card-body {
+  .post-detail-body {
     width: 33%;
   }
 
-  .post-card-extras {
+  .post-detail-extras {
     width: 33%;
   }
 
-  .post-card-button-container {
+  .post-detail-button-container {
     width: 30%;
     margin: 0.5rem auto;
 
-    .post-card-button {
+    .post-detail-button {
       margin: 0 0.5rem;
     }
   }

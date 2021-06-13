@@ -37,10 +37,7 @@ export const logoutUser = async () => {
   try {
     const refreshToken = localStorage.getItem('refresh');
 
-    localStorage.removeItem('access');
-    localStorage.removeItem('refresh');
-    axios.interceptors.request.eject(requestInterceptor);
-    axios.interceptors.response.eject(responseInterceptor);
+    clearTokens();
 
     const { status, statusText } = await axiosAuth.post('logout/', {
       refresh: refreshToken,
@@ -77,3 +74,11 @@ export const authenticateUser = async () => {
     console.log('~ AUTHENTICATE USER ERROR', err);
   }
 };
+
+function clearTokens() {
+  localStorage.removeItem('access');
+  localStorage.removeItem('refresh');
+  axios.defaults.headers.common.authorization = null;
+  axios.interceptors.request.eject(requestInterceptor);
+  axios.interceptors.response.eject(responseInterceptor);
+}
