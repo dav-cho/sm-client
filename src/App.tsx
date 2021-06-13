@@ -1,4 +1,3 @@
-import React from 'react';
 import { Route } from 'react-router-dom';
 
 // import { ProtectedRoute } from './components/protected-route/protected-route.component';
@@ -7,6 +6,7 @@ import UsersPage from './pages/users/users.page';
 import PostsPage from './pages/posts/posts.page';
 import HomePage from './pages/home/home.page';
 import AboutPage from './pages/about/about.page';
+import ProfilePage from './pages/profile/profile.page';
 import RegisterPage from './pages/register/register.page';
 import WelcomePage from './pages/welcome/welcome.page';
 import LoginPage from './pages/login/login.page';
@@ -36,6 +36,7 @@ function App() {
       <Route path="/posts" component={PostsPage} />
       <Route exact path="/" component={HomePage} />
       <Route path="/about" component={AboutPage} />
+      <Route path="/profile" component={ProfilePage} />
       <Route path="/register" component={RegisterPage} />
       <Route path="/welcome" component={WelcomePage} />
       <Route path="/login" component={LoginPage} />

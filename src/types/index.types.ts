@@ -1,52 +1,40 @@
 export interface User {
-  id: string;
+  id: number;
   email: string;
   username: string;
-  created: string;
-  last_login: string;
+  created: Date;
+  last_login: Date;
   posts?: Post[];
   comments?: Comment[];
 }
 
 export interface Post {
-  id: string;
+  id: number;
   title: string;
   body: string;
-  published: string;
-  author: string;
-  author_id: string;
+  published: Date;
+  author: Date;
+  author_id: number;
   comments?: Comment[];
 }
 
 export interface Comment {
-  id: string;
+  id: number;
   title: string;
   body: string;
-  published: string;
+  published: Date;
   author: string;
-  author_id: string;
+  author_id: number;
   post: string;
 }
 
-export interface AuthUser {
-  email: string;
-  username: string;
-  date_joined: string;
-  last_login: string;
-  password?: string;
-  loggedIn: boolean;
+export interface Reaction {
+  id: number;
+  title: string;
+  body: string;
+  published: Date;
+  author: string;
+  author_id: number;
+  post?: string;
+  comment?: string;
 }
-
-export type RegisterFormData = {
-  email: string;
-  username: string;
-  password: string;
-  confirm_password: string;
-};
-
-export type FormData = {
-  email: string;
-  username: string;
-  password: string;
-  confirm_password: string;
-};

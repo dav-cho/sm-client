@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 
 import { useThemeContext } from '../../contexts/theme.context';
+import { useUserContext } from '../../contexts/user.context';
 
 import { LoginLogoutButton } from '../loginin-logout-button/login-logout-button.component';
 import { ToggleThemeButton } from '../toggle-theme-button/toggle-theme-button.components';
@@ -9,13 +10,25 @@ import './header.styles.scss';
 
 export const Header = () => {
   const { headerTheme } = useThemeContext();
+  const { loggedIn } = useUserContext();
+
+  /**
+   * TODO: change checking with loggedIn to user
+   * change from loggedIn to user from user context?
+   **/
+  const checkUser = () => {
+    const existingUser = { path: '/profile', name: 'profile' };
+    const newUser = { path: '/register', name: 'register' };
+
+    return loggedIn ? existingUser : newUser;
+  };
 
   const navLinks = [
     { path: '/users', name: 'users' },
     { path: '/posts', name: 'posts' },
     { path: '/', name: 'home' },
     { path: '/about', name: 'about' },
-    { path: '/register', name: 'register' },
+    checkUser(),
   ];
 
   return (
@@ -32,7 +45,6 @@ export const Header = () => {
           );
         })}
         <LoginLogoutButton />
-        {/* <button onClick={toggleTheme}>toggle theme</button> */}
         <ToggleThemeButton />
       </div>
     </div>

@@ -1,34 +1,40 @@
 import { axios } from './axios-config.utils';
 
-export const fetchUsers = async () => {
+export const getUsers = async () => {
   try {
     const { data } = await axios.get('accounts/');
 
     return data;
   } catch (err) {
-    console.log('~ err fetchUsers from user.utils', err);
+    console.log('~ GET USERS ERROR', err);
   }
 };
 
-export const fetchUser = async () => {
+export const getUser = async (userId: number) => {
   try {
-    const { data } = await axios.get('accounts/user');
+    const { data } = await axios.get(`accounts/${userId}`);
 
     return data;
   } catch (err) {
-    console.log('fetchUser ~ err', err);
+    console.log('~ GET USER ERROR', err);
   }
 };
 
-export const fetchUserData = async (accessToken: string) => {
+export const checkStoredTokens = () => {
+  const accessToken = localStorage.getItem('access');
+  const refreshToken = localStorage.getItem('refresh');
+
+  return accessToken || refreshToken ? true : false;
+};
+
+export const getCurrentUser = async () => {
   try {
-    const { data } = await axios.post('accounts/getuser/', {
-      access: accessToken,
-    });
+    const { data } = await axios.post('accounts/user/');
+    console.log('~ GET CURRENT USER DATA', data);
 
     return data;
   } catch (err) {
-    console.log('~ err', err);
+    console.log('~ GET CURRENT USER ERROR', err);
     return null;
   }
 };

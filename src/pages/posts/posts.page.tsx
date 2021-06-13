@@ -4,6 +4,7 @@ import { Post } from '../../types/index.types';
 import { getApiData } from '../../utils/api.utils';
 
 import { NewPost } from '../../components/new-post/new-post.component';
+import { PostList } from '../../components/post-list/post-list.component';
 import { CardList } from '../../components/card-list/card-list.component';
 
 const PostsPage = () => {
@@ -18,15 +19,12 @@ const PostsPage = () => {
 
   useEffect(() => {
     getPosts();
-    // getApiData('posts').then(data => {
-    //   setPosts(data);
-    // });
   }, []);
 
   return (
     <>
-      <h1>posts page</h1>
       <NewPost />
+      <PostList postsList={posts} />
       <CardList listData={posts} properties={['author', 'title', 'body']} />
     </>
   );

@@ -6,6 +6,7 @@ type FormTextAreaProps = {
   value: string;
   rows?: number;
   cols?: number;
+  style?: React.CSSProperties;
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
 };
 

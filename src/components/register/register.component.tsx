@@ -7,7 +7,7 @@ import { useUserContext } from '../../contexts/user.context';
 import { registerUser, loginUser } from '../../utils/auth.utils';
 
 import { FormInput } from '../form-input/form-input.component';
-import { FormButton } from '../form-button/form-button';
+import { FormButton } from '../form-button/form-button.component';
 
 import './register.styles.scss';
 
@@ -54,6 +54,7 @@ export const Register = () => {
     setUser(user);
     setLoggedIn(true);
     push('/welcome');
+    // push('/home');
   };
 
   return (

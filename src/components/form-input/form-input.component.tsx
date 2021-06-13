@@ -5,6 +5,7 @@ type FormInputProps = {
   id: string;
   type?: string;
   value: string;
+  style?: React.CSSProperties;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 

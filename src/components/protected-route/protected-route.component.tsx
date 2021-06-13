@@ -1,11 +1,7 @@
-// import { Route, Redirect } from 'react-router-dom';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
+// import { Route } from 'react-router-dom';
 
-// import { useUserContext } from '../../contexts/user.context';
-// import { authenticatedUser } from '../../utils/auth.utils';
-
-import { AccessDenied } from '../../components/access-denied/access-denied.component';
-import React from 'react';
+import { useUserContext } from '../../contexts/user.context';
 
 type ProtectedRouteProps = {
   path: string;
@@ -18,10 +14,11 @@ export const ProtectedRoute = ({
   component,
   isProtected,
 }: ProtectedRouteProps) => {
-  // return isProtected && authenticatedUser() ? (
-  return isProtected ? (
+  const { loggedIn } = useUserContext();
+
+  return isProtected && loggedIn ? (
     <Route path={path} component={component} />
   ) : (
-    <AccessDenied />
+    <Redirect to="/login" />
   );
 };

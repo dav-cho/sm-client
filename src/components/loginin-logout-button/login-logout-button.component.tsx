@@ -15,7 +15,6 @@ export const LoginLogoutButton = () => {
     setUser(null);
     setLoggedIn(false);
     push('/login');
-    // console.log('~ res from logout component', res);
     console.log('~ SUCCESSFULLY LOGGED OUT');
   };
 

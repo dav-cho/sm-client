@@ -2,7 +2,7 @@ import { useUserContext } from '../../contexts/user.context';
 
 const HomePage = () => {
   const { user } = useUserContext();
-  console.log('~ user from welcome', user);
+  console.log('~ USER FROM HOME', user);
 
   return (
     <>

@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
-// import { useHistory } from 'react-router-dom';
 
 import { User } from '../../types/index.types';
-// import { useUserContext } from '../../contexts/user.context';
-import { fetchUsers } from '../../utils/user.utils';
+import { getUsers } from '../../utils/user.utils';
+import { formatDate } from '../../utils/helpers';
 
 import { CardList } from '../../components/card-list/card-list.component';
 import { AccessDenied } from '../../components/access-denied/access-denied.component';
@@ -12,27 +11,20 @@ import './users.styles.scss';
 
 const UsersPage = () => {
   const [users, setUsers] = useState<User[]>([]);
-  // const { user } = useUserContext();
 
-  const getUsers = async () => {
-    const usersList = await fetchUsers();
+  const fetchUsers = async () => {
+    const usersList = await getUsers();
     console.log('~ usersList', usersList);
 
     if (usersList) setUsers(usersList);
   };
 
   useEffect(() => {
-    getUsers();
+    fetchUsers();
   }, []);
-
-  const formatDate = (isoDate: string) => {
-    // return new Date(isoDate).toString();
-    return new Date(isoDate).toLocaleString();
-  };
 
   return (
     <div className="users-page-container">
-      {/* {users.length && */}
       <div className="users-container">
         {users &&
           users.map(user => (

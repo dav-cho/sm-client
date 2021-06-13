@@ -1,31 +1,29 @@
 import { useState, useEffect } from 'react';
 
 import { useUserContext } from '../../contexts/user.context';
+import { postApiData } from '../../utils/api.utils';
 
 import { FormInput } from '../form-input/form-input.component';
 import { FormTextArea } from '../form-textarea/form-textarea.component';
-import { FormButton } from '../form-button/form-button';
+import { FormButton } from '../form-button/form-button.component';
 
 import './new-post.styles.scss';
 
 const initialFormState = {
   title: '',
   body: '',
-  // published: '',
-  // author: '',
 };
 
 export const NewPost = () => {
   const { user } = useUserContext();
   const [formState, setFormState] = useState({
     ...initialFormState,
-    // author: user.id,
-    // author: user!.id,
-    author: user ? user.id : '',
+    // author: user?.username,
+    author: user?.username,
   });
 
   useEffect(() => {
-    console.log('~ formState', formState);
+    console.log('~ FORMSTATE', formState);
   }, [formState]);
 
   const handleChange = (
@@ -33,11 +31,13 @@ export const NewPost = () => {
   ) => {
     const { id, value } = e.currentTarget;
 
-    setFormState({ ...formState, [id]: value });
+    setFormState({ ...formState, [id]: value, author: user?.username });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    await postApiData('posts', formState);
   };
 
   return (
@@ -50,14 +50,16 @@ export const NewPost = () => {
           type="text"
           value={formState.title}
           onChange={handleChange}
+          style={{ width: '43em' }}
         />
         <FormTextArea
           label="post body"
           id="body"
           value={formState.body}
           onChange={handleChange}
-          rows={6}
-          cols={40}
+          rows={4}
+          cols={50}
+          style={{ width: '43em' }}
         />
         <FormButton type="submit" label="POST" />
       </form>

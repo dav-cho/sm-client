@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 
 import { User } from '../types/index.types';
-import { authenticateUser, checkLoginStatus } from '../utils/auth.utils';
+import { getCurrentUser, checkStoredTokens } from '../utils/user.utils';
 
 type UserContextProps = {
   user: User | null;
@@ -21,20 +21,25 @@ export const useUserContext = () => useContext(UserContext);
 
 export const UserContextProvider: React.FC = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [loggedIn, setLoggedIn] = useState(checkLoginStatus());
+  const [loggedIn, setLoggedIn] = useState(checkStoredTokens());
 
   const checkUserStatus = async () => {
-    const user = await authenticateUser();
+    const accessToken = localStorage.getItem('access');
 
-    if (user) setUser(user);
+    if (!accessToken) return;
+
+    const user = await getCurrentUser();
+    console.log('~ USER FROM USER CONTEXT', user);
+
+    setUser(user);
   };
 
   useEffect(() => {
     checkUserStatus();
-  }, []);
+  }, [setUser]);
 
   useEffect(() => {
-    console.log('~ user from user context', user);
+    console.log('~ USER FROM USER CONTEXT', user);
   }, [user]);
 
   return (

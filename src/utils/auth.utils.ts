@@ -1,62 +1,35 @@
-import { axios } from './axios-config.utils';
+import { axios, axiosAuth } from './axios-config.utils';
+import { requestInterceptor, responseInterceptor } from './axios-config.utils';
 
-import { RegisterFormData } from '../types/index.types';
-import { fetchUserData } from './user.utils';
-
-// import { getUser } from './user.utils';
-
-/**
- * token helpers
- **/
-
-export const setTokens = (access: string, refresh: string) => {
-  localStorage.setItem('access', access);
-  localStorage.setItem('refresh', refresh);
-  axios.defaults.headers.common.authorization = `Bearer ${access}`;
-  axios.defaults.headers.common.authorization = `Bearer ${refresh}`;
+type RegisterFormData = {
+  email: string;
+  username: string;
+  password: string;
+  confirm_password: string;
 };
-
-const clearTokens = () => {
-  localStorage.removeItem('access');
-  localStorage.removeItem('refresh');
-  axios.defaults.headers.common.authorization = null;
-  axios.defaults.headers.common.authorization = null;
-};
-
-type GetLocalTokenProps = 'access' | 'refresh';
-
-export const getLocalToken = (tokenType: GetLocalTokenProps) => {
-  const token = localStorage.getItem(tokenType);
-
-  return token;
-};
-
-/**
- * auth api calls
- **/
 
 export const registerUser = async (formData: RegisterFormData) => {
   try {
-    const res = await axios.post('auth/register/', formData);
-    const data = await res.data;
+    const { data } = await axiosAuth.post('register/', formData);
 
     return data;
   } catch (err) {
-    console.log('~ err', err);
-    console.log('~ err.request.headers', err.request.headers);
+    console.log('~ REGISTER USER ERROR', err);
   }
 };
 
 export const loginUser = async (formData: {}) => {
   try {
-    const { data } = await axios.post('auth/login/', formData);
+    const { data } = await axiosAuth.post('login/', formData);
     const { access, refresh } = await data;
 
-    setTokens(access, refresh);
+    localStorage.setItem('access', access);
+    localStorage.setItem('refresh', refresh);
+    axios.defaults.headers.common.authorization = `Bearer ${access}`;
 
     return data;
   } catch (err) {
-    console.log('~ err loginUser', err);
+    console.log('~ LOGIN USER ERROR', err);
   }
 };
 
@@ -64,74 +37,43 @@ export const logoutUser = async () => {
   try {
     const refreshToken = localStorage.getItem('refresh');
 
-    clearTokens();
+    localStorage.removeItem('access');
+    localStorage.removeItem('refresh');
+    axios.interceptors.request.eject(requestInterceptor);
+    axios.interceptors.response.eject(responseInterceptor);
 
-    const { status, statusText } = await axios.post('auth/logout/', {
+    const { status, statusText } = await axiosAuth.post('logout/', {
       refresh: refreshToken,
     });
 
     return { status, statusText };
   } catch (err) {
-    console.log('~ err logoutUser', err);
+    console.log('~ LOGOUT USER ERROR', err);
   }
 };
 
-export const refreshAccessToken = async (refresh: string) => {
+export const refreshAccessToken = async () => {
   try {
-    const { data } = await axios.post('auth/refresh/', { refresh });
+    const { data } = await axiosAuth.post('refresh/', {
+      refresh: localStorage.getItem('refresh'),
+    });
 
     return data.access;
   } catch (err) {
-    console.log('~ err', err);
+    console.log('~ REFRESH ACCESS TOKEN ERROR', err);
   }
 };
 
-/**
- * user state / login status
- **/
-
-export const checkLoginStatus = () => {
-  const accessToken = localStorage.getItem('access');
-  const refreshToken = localStorage.getItem('refresh');
-
-  return accessToken || refreshToken ? true : false;
-};
-
-export const checkUser = async () => {
+export const authenticateUser = async () => {
   try {
-    const accessToken = localStorage.getItem('access');
-    const { data } = await axios.post('auth/getuser/', { access: accessToken });
+    const { data } = await axiosAuth.post('refresh/', {
+      refresh: localStorage.getItem('refresh'),
+    });
+
+    if (!data) return Promise.reject();
 
     return data;
   } catch (err) {
-    console.log('~ err', err);
-    // return null;
-  }
-};
-
-/**
- * get user data with access token
- **/
-
-// export const verifyUser = async () => {
-export const authenticateUser = async () => {
-  const accessToken = localStorage.getItem('access');
-
-  if (accessToken) return await fetchUserData(accessToken);
-
-  // if (!accessToken) return null;
-  // const user = await fetchUserData(accessToken);
-  // return user;
-};
-
-/**
- * authenticate access token or get new token with refresh token
- **/
-
-export const verifyAccessToken = async (accessToken: string) => {
-  try {
-    //
-  } catch (err) {
-    console.log('~ err', err);
+    console.log('~ AUTHENTICATE USER ERROR', err);
   }
 };

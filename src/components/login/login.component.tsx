@@ -1,12 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { useUserContext } from '../../contexts/user.context';
 import { loginUser } from '../../utils/auth.utils';
-// import { getUser } from '../../utils/user.utils';
 
 import { FormInput } from '../form-input/form-input.component';
-import { FormButton } from '../form-button/form-button';
+import { FormButton } from '../form-button/form-button.component';
 
 import './login.styles.scss';
 
@@ -30,14 +29,14 @@ export const Login = () => {
     setFormState({ ...formState, [id]: value });
   };
 
-  // useEffect(() => {
-  //   console.log('~ loginState', formState);
-  // }, [formState]);
+  useEffect(() => {
+    console.log('~ loginState', formState);
+  }, [formState]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     console.log('~ formState', formState);
+
     const userData = await loginUser(formState);
 
     if (!userData) return;
@@ -45,7 +44,7 @@ export const Login = () => {
     setUser(userData.user);
     setLoggedIn(true);
     // push('/users');
-    push('/welcome');
+    // push('/welcome');
   };
 
   return (

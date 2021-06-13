@@ -1,7 +1,7 @@
 import { axios } from './axios-config.utils';
 // import { axiosAPI } from './api-config.utils';
 
-export type apiEndPoint = 'posts' | 'reactions' | 'comments';
+export type apiEndPoint = 'posts' | 'comments' | 'reactions';
 
 export const getApiData = async (endPoint: apiEndPoint) => {
   try {
@@ -15,7 +15,8 @@ export const getApiData = async (endPoint: apiEndPoint) => {
 
 export const postApiData = async (endPoint: apiEndPoint, formData: {}) => {
   try {
-    await axios.post(`api/${endPoint}/`, formData);
+    await axios.post(`${endPoint}/`, formData);
+    console.log('~ api.utils formData', formData);
   } catch (err) {
     console.log('~ err', err);
   }
