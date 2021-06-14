@@ -42,7 +42,7 @@ export const Header = () => {
     <div className="header-container" style={headerTheme}>
       <div className="header-title">
         <ToggleThemeButton />
-        <h3>project 4</h3>
+        <h3>chngu</h3>
       </div>
       <div className="nav-links" style={headerTheme}>
         {navLinks.map(({ path, name, svg }) => {

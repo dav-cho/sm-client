@@ -23,7 +23,6 @@ export const getUser = async (userId: number) => {
 export const getCurrentUser = async () => {
   try {
     const { data } = await axios.post('accounts/user/');
-    console.log('~ GET CURRENT USER DATA', data);
 
     return data;
   } catch (err) {

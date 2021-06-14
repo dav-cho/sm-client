@@ -25,7 +25,7 @@ const PostsPage = () => {
 
   useEffect(() => {
     getPosts();
-  }, []);
+  }, [user]);
 
   const handleNewPostClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     push('/posts/new');

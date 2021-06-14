@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { useUserContext } from '../../contexts/user.context';
 import { postApi } from '../../utils/api.utils';
@@ -16,6 +17,7 @@ const initialFormState = {
 
 export const NewPost = () => {
   const { user } = useUserContext();
+  const { push } = useHistory();
   const [formState, setFormState] = useState({
     ...initialFormState,
     author: user?.username,
@@ -33,6 +35,7 @@ export const NewPost = () => {
     e.preventDefault();
 
     await postApi('posts', formState);
+    push('/posts');
   };
 
   return (
