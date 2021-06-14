@@ -31,7 +31,6 @@ export const Login = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('~ formState', formState);
 
     const userData = await loginUser(formState);
 

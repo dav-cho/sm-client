@@ -29,7 +29,6 @@ export const UserContextProvider: React.FC = ({ children }) => {
     if (!accessToken) return;
 
     const user = await getCurrentUser();
-    console.log('~ USER FROM USER CONTEXT', user);
 
     setUser(user);
   };
@@ -37,10 +36,6 @@ export const UserContextProvider: React.FC = ({ children }) => {
   useEffect(() => {
     checkUserStatus();
   }, [setUser]);
-
-  useEffect(() => {
-    console.log('~ USER FROM USER CONTEXT', user);
-  }, [user]);
 
   return (
     <UserContext.Provider value={{ user, setUser, loggedIn, setLoggedIn }}>
