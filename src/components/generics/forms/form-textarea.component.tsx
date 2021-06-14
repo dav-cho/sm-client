@@ -1,4 +1,4 @@
-import './form-textarea.styles.scss';
+import './styles/form-textarea.styles.scss';
 
 type FormTextAreaProps = {
   label: string;

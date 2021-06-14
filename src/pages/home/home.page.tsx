@@ -1,17 +1,13 @@
 import { Route } from 'react-router-dom';
 
-import { useUserContext } from '../../contexts/user.context';
-
 import { Welcome } from '../../components/users/welcome.component';
 
 import './home.styles.scss';
 
 const HomePage = () => {
-  const { user } = useUserContext();
-  console.log('~ USER FROM HOME', user);
-
   return (
     <>
+      <h1>home page</h1>
       <Route path="/welcome" component={Welcome} />
     </>
   );

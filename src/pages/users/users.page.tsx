@@ -14,7 +14,6 @@ const UsersPage = () => {
 
   const fetchUsers = async () => {
     const usersList = await getUsers();
-    console.log('~ usersList', usersList);
 
     if (usersList) setUsers(usersList);
   };

@@ -1,25 +1,38 @@
 .post-detail-container {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  // align-items: flex-start;
   width: 90%;
   margin: 1rem auto;
   border: 1px solid black;
+  min-height: 80%;
+
+  .post-detail {
+    margin: 0 auto;
+  }
+
+  h3 {
+    margin-top: 0;
+  }
 
   ul {
     list-style: none;
     text-align: left;
   }
 
+  .post-detail-title {
+    width: 100%;
+    margin: 0;
+  }
+
   .post-detail-info {
     width: 33%;
-
-    .post-detail-title {
-      width: 100%;
-    }
   }
 
   .post-detail-body {
     width: 33%;
+    text-align: center;
   }
 
   .post-detail-extras {
@@ -27,6 +40,7 @@
   }
 
   .post-detail-button-container {
+    align-self: flex-end;
     width: 30%;
     margin: 0.5rem auto;
 

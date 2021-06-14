@@ -1,8 +1,6 @@
-// import { useReducer } from 'react';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-// import { RegisterFormData } from '../../types/index.types';
 import { useUserContext } from '../../contexts/user.context';
 import { registerUser, loginUser } from '../../utils/auth.utils';
 
@@ -37,28 +35,23 @@ export const Register = () => {
     setFormState({ ...formState, [id]: value });
   };
 
-  useEffect(() => {
-    console.log('register.component ~ formState', formState);
-  }, [formState]);
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const { email, password } = formState;
     const user = await registerUser(formState);
-    console.log('register success ~ user', user);
 
     if (!user) return;
 
     await loginUser({ email, password });
     setUser(user);
     setLoggedIn(true);
-    push('/welcome');
-    // push('/home');
+    push('/profile');
   };
 
   return (
     <div className="register-container">
+      <h3 className="register-title">register</h3>
       <form onSubmit={handleSubmit}>
         <FormInput
           label="Email"

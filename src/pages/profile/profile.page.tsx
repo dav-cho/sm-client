@@ -6,7 +6,7 @@ const ProfilePage = () => {
   const { user } = useUserContext();
   console.log('~ user from profile page', user);
 
-  return <>{user && <Profile user={user} />}</>;
+  return user && <Profile user={user} />;
 };
 
 export default ProfilePage;

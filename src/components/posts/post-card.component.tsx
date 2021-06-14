@@ -1,9 +1,8 @@
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import { Post } from '../../types/index.types';
 import { formatDate } from '../../utils/helpers';
-
-import { PostDetail } from './post-detail.component';
+import { deleteApi } from '../../utils/api.utils';
 
 import './styles/post-card.styles.scss';
 
@@ -14,16 +13,10 @@ type PostCardProps = {
 export const PostCard = ({ post }: PostCardProps) => {
   const { push } = useHistory();
 
-  const handleDetailClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    console.log('~ handleDetailClick');
-    push(`posts/${post.id}`);
-    return <PostDetail post={post} />;
+  const handleDeleteClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    const res = await deleteApi('posts', post.id);
+    console.log('~ RESPONSE STATUS', res?.status);
   };
-
-  // const handleEditClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-  //   push(`posts/${post.id}`);
-  //   // return <Link to={`posts/${post.id}`} />;
-  // };
 
   return (
     <div className="post-card-container">
@@ -81,14 +74,44 @@ export const PostCard = ({ post }: PostCardProps) => {
       <div className="post-card-button-container">
         <button className="post-card-button">like/react</button>
         <button className="post-card-button">comment</button>
-        <button className="post-card-button" onClick={handleDetailClick}>
+        <button
+          className="post-card-button"
+          onClick={() => push(`/posts/${post.id}`)}
+        >
           detail
         </button>
-        {/* <button onClick={handleEditClick} className="post-card-button"> */}
-        <button className="post-card-button">
-          <Link to={`posts/${post.id}`}>edit</Link>
+        <button
+          className="post-card-button"
+          onClick={() => push(`posts/${post.id}/edit`)}
+        >
+          edit
+        </button>
+        <button className="post-card-button" onClick={handleDeleteClick}>
+          delete
         </button>
       </div>
     </div>
   );
 };
+
+/**
+ * TODO:
+ **/
+
+// const checkEditPermissions = () => {
+//   if (!user || !post) return;
+//   console.log('~ USER ID', user.id);
+//   console.log('~ AUTHOR ID', post.author_id);
+
+//   return user.id === post.author_id ? true : false;
+// };
+
+// const handleEditClick = () => {
+//   if (checkEditPermissions()) {
+//     push(`posts/${post.id}/edit`);
+//   } else {
+//     return (
+//       <Redirect to={{ pathname: '/error', state: { type: 'access' } }} />
+//     );
+//   }
+// };

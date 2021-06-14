@@ -1,10 +1,19 @@
 import { FlashError } from '../../components/errors/flash-error.component';
+import { AccessDenied } from '../../components/errors/access-denied.component';
 
-const ErrorPage = () => {
+interface ErrorPageProps {
+  location: { state: { type: 'access' | 'other' } };
+}
+
+const ErrorPage = ({ location }: ErrorPageProps) => {
+  const {
+    state: { type },
+  } = location;
+
   return (
     <>
-      <h1>error page</h1>
-      <FlashError />
+      {type === 'access' && <AccessDenied />}
+      {type === 'other' && <FlashError />}
     </>
   );
 };

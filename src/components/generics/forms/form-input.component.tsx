@@ -1,13 +1,13 @@
-import './form-input.styles.scss';
+import './styles/form-input.styles.scss';
 
-type FormInputProps = {
+interface FormInputProps {
   label: string;
   id: string;
   type?: string;
   value: string;
   style?: React.CSSProperties;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-};
+}
 
 export const FormInput = ({
   label,

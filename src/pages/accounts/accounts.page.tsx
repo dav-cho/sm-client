@@ -6,12 +6,9 @@ import { Login } from '../../components/auth/login.component';
 const AccountsPage = () => {
   return (
     <>
-      <h1>accounts page</h1>
-      {/* <Login /> */}
+      <h3>accounts page</h3>
       <Route path="/accounts/register" component={Register} />
       <Route path="/accounts/login" component={Login} />
-      {/* <Route path="accounts/login" render={() => <Login />} /> */}
-      {/* <Route path="accounts/login" children={() => <Login />} /> */}
     </>
   );
 };

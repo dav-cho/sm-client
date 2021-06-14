@@ -26,10 +26,6 @@ export const axiosAuth = AXIOS.create({
   baseURL: `${BASE_URL}/auth/`,
 });
 
-// export const axiosApi = AXIOS.create({
-//   baseURL: `${BASE_URL}/api/`,
-// });
-
 export const requestInterceptor = axios.interceptors.request.use(
   config => {
     if (checkStoredTokens()) {
@@ -50,8 +46,6 @@ export const responseInterceptor = axios.interceptors.response.use(
   async err => {
     const originalReq = err.config;
     const status = err.response.status;
-    // axios.interceptors.request.eject(requestInterceptor);
-    // axios.interceptors.response.eject(responseInterceptor);
 
     if (status === 401) {
       const newAccessToken = await refreshAccessToken();

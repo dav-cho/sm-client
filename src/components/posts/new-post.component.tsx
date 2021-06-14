@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 import { useUserContext } from '../../contexts/user.context';
-import { postApiData } from '../../utils/api.utils';
+import { postApi } from '../../utils/api.utils';
 
 import { FormInput } from '../generics/forms/form-input.component';
 import { FormTextArea } from '../generics/forms/form-textarea.component';
@@ -21,10 +21,6 @@ export const NewPost = () => {
     author: user?.username,
   });
 
-  useEffect(() => {
-    console.log('~ FORMSTATE', formState);
-  }, [formState]);
-
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -36,7 +32,7 @@ export const NewPost = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    await postApiData('posts', formState);
+    await postApi('posts', formState);
   };
 
   return (

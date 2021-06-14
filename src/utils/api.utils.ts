@@ -1,11 +1,20 @@
 import { axios } from './axios-config.utils';
-// import { axiosAPI } from './api-config.utils';
 
 export type apiEndPoint = 'posts' | 'comments' | 'reactions';
 
-export const getApiData = async (endPoint: apiEndPoint) => {
+export const getApiList = async (endPoint: apiEndPoint) => {
   try {
     const { data } = await axios.get(`${endPoint}/`);
+
+    return data;
+  } catch (err) {
+    console.log('~ GET API LIST ERROR', err);
+  }
+};
+
+export const getApiDetail = async (endPoint: apiEndPoint, id: number) => {
+  try {
+    const { data } = await axios.get(`${endPoint}/${id}/`);
 
     return data;
   } catch (err) {
@@ -13,33 +22,43 @@ export const getApiData = async (endPoint: apiEndPoint) => {
   }
 };
 
-export const postApiData = async (endPoint: apiEndPoint, formData: {}) => {
+export const postApi = async (endPoint: apiEndPoint, formData: {}) => {
   try {
     await axios.post(`${endPoint}/`, formData);
     console.log('~ api.utils formData', formData);
   } catch (err) {
-    console.log('~ err', err);
+    console.log('~ POST API ERROR', err);
   }
 };
 
-// type PutPatchApiMethod = 'put' | 'patch';
-
 interface PutPatchApiProps {
-  endPoint: apiEndPoint;
+  url: string;
   method: 'put' | 'patch';
   formData: {};
 }
 
-export const putPatchApiData = async ({
-  endPoint,
+export const putPatchApi = async ({
+  url,
   method,
   formData,
 }: PutPatchApiProps) => {
   try {
-    const res = await axios({ url: `${endPoint}/`, method, data: formData });
+    const res = await axios({ url, method, data: formData });
+
+    return res.status;
+  } catch (err) {
+    console.log('~ PUT / PATCH API ERROR', err);
+
+    return err.response.status;
+  }
+};
+
+export const deleteApi = async (endPoint: apiEndPoint, id: number) => {
+  try {
+    const res = await axios.delete(`${endPoint}/${id}/`);
 
     return res;
   } catch (err) {
-    console.log('~ err', err);
+    console.log('~ DELETE API ERROR', err);
   }
 };

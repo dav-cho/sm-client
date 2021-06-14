@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 
-import { User } from '../types/index.types';
 import { getCurrentUser, checkStoredTokens } from '../utils/user.utils';
+import { User } from '../types/index.types';
 
 type UserContextProps = {
   user: User | null;

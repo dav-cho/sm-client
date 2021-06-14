@@ -1,22 +1,37 @@
+import { useState, useEffect, useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
+
 import { Post } from '../../types/index.types';
 import { formatDate } from '../../utils/helpers';
+import { getApiDetail } from '../../utils/api.utils';
 
 import './styles/post-detail.styles.scss';
 
 interface PostDetailProps {
-  post: Post;
-};
+  match: any;
+}
 
-export const PostDetail = ({post}: PostDetailProps) => {
-  const handleEditClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    //
-  };
+export const PostDetail = ({ match }: PostDetailProps) => {
+  const [post, setPost] = useState<Post>();
+  const { push } = useHistory();
+  const { id } = match.params;
 
-  return (
+  const getPost = useCallback(async () => {
+    const post = await getApiDetail('posts', id);
+
+    if (post) setPost(post);
+  }, [id]);
+
+  useEffect(() => {
+    if (id) getPost();
+  }, [id, getPost]);
+
+  return post ? (
     <div className="post-detail-container">
-      <h2>post detail</h2>
+      <span className="post-detail">post detail</span>
+      <h2 className="post-detail-title">{post.title}</h2>
       <div className="post-detail-info">
-        <h3 className="post-detail-title">post info:</h3>
+        <h3>post info:</h3>
         <ul>
           <li>
             id: <b>{post.id}</b>
@@ -31,15 +46,15 @@ export const PostDetail = ({post}: PostDetailProps) => {
             date: <b>{formatDate(post.published)}</b>
           </li>
         </ul>
-        <div className="reactions">
-          <h4>post reactions:</h4>
-        </div>
       </div>
       <div className="post-detail-body">
-        <h3>{post.title}</h3>
+        <h3>post body:</h3>
         <p>{post.body}</p>
+        <h3>post reactions:</h3>
+        <div className="reactions"></div>
       </div>
       <div className="post-detail-extras">
+        <h3>post comments:</h3>
         {post.comments &&
           post.comments.map(comment => (
             <div key={comment.id} className="post-detail-comments">
@@ -59,10 +74,15 @@ export const PostDetail = ({post}: PostDetailProps) => {
       <div className="post-detail-button-container">
         <button className="post-detail-button">like/react</button>
         <button className="post-detail-button">comment</button>
-        <button onClick={handleEditClick} className="post-detail-button">
+        <button
+          onClick={() => push(`posts/${post.id}/edit`)}
+          className="post-detail-button"
+        >
           edit
         </button>
       </div>
     </div>
+  ) : (
+    <></>
   );
 };
