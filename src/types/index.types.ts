@@ -13,9 +13,11 @@ export interface Post {
   title: string;
   body: string;
   published: Date;
+  updated?: Date;
   author: Date;
   author_id: number;
-  comments?: Comment[];
+  comments: Comment[];
+  reactions: Reaction[];
 }
 
 export interface Comment {
@@ -23,9 +25,10 @@ export interface Comment {
   title: string;
   body: string;
   published: Date;
+  updated?: Date;
   author: string;
   author_id: number;
-  post: string;
+  post: Post;
 }
 
 export interface Reaction {
@@ -35,6 +38,6 @@ export interface Reaction {
   published: Date;
   author: string;
   author_id: number;
-  post?: string;
-  comment?: string;
+  post?: Post;
+  comment?: Comment;
 }

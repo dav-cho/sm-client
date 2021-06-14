@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useThemeContext } from '../../contexts/theme.context';
 import { useUserContext } from '../../contexts/user.context';
 
-import { LoginLogoutButton } from '../loginin-logout-button/login-logout-button.component';
+import { LoginLogoutButton } from '../auth/login-logout-button.component';
 import { ToggleThemeButton } from '../toggle-theme-button/toggle-theme-button.components';
 
 import './header.styles.scss';

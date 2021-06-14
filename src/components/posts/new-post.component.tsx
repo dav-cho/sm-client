@@ -3,11 +3,11 @@ import { useState, useEffect } from 'react';
 import { useUserContext } from '../../contexts/user.context';
 import { postApiData } from '../../utils/api.utils';
 
-import { FormInput } from '../form-input/form-input.component';
-import { FormTextArea } from '../form-textarea/form-textarea.component';
-import { FormButton } from '../form-button/form-button.component';
+import { FormInput } from '../generics/forms/form-input.component';
+import { FormTextArea } from '../generics/forms/form-textarea.component';
+import { FormButton } from '../generics/forms/form-button.component';
 
-import './new-post.styles.scss';
+import './styles/new-post.styles.scss';
 
 const initialFormState = {
   title: '',
@@ -18,7 +18,6 @@ export const NewPost = () => {
   const { user } = useUserContext();
   const [formState, setFormState] = useState({
     ...initialFormState,
-    // author: user?.username,
     author: user?.username,
   });
 

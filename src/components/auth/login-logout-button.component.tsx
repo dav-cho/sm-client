@@ -14,15 +14,15 @@ export const LoginLogoutButton = () => {
 
     setUser(null);
     setLoggedIn(false);
-    push('/login');
+    push('/accounts/login');
     console.log('~ SUCCESSFULLY LOGGED OUT');
   };
 
   return loggedIn ? (
-    <Link to="/login" onClick={handleClick}>
+    <Link to="/accounts/login" onClick={handleClick}>
       logout
     </Link>
   ) : (
-    <Link to="/login">login</Link>
+    <Link to="/accounts/login">login</Link>
   );
 };

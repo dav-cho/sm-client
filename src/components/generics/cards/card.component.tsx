@@ -1,4 +1,4 @@
-import './card.styles.scss';
+import './styles/card.styles.scss';
 
 type CardProps<apiItemData> = {
   itemData: apiItemData;

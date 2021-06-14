@@ -6,10 +6,10 @@ import { useHistory } from 'react-router-dom';
 import { useUserContext } from '../../contexts/user.context';
 import { registerUser, loginUser } from '../../utils/auth.utils';
 
-import { FormInput } from '../form-input/form-input.component';
-import { FormButton } from '../form-button/form-button.component';
+import { FormInput } from '../generics/forms/form-input.component';
+import { FormButton } from '../generics/forms/form-button.component';
 
-import './register.styles.scss';
+import './styles/register.styles.scss';
 
 type RegisterFormData = {
   email: string;

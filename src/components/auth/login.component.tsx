@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 
 import { useUserContext } from '../../contexts/user.context';
 import { loginUser } from '../../utils/auth.utils';
 
-import { FormInput } from '../form-input/form-input.component';
-import { FormButton } from '../form-button/form-button.component';
+import { FormInput } from '../generics/forms/form-input.component';
+import { FormButton } from '../generics/forms/form-button.component';
 
-import './login.styles.scss';
+import './styles/login.styles.scss';
 
 type InputType = {
   [input: string]: string;
@@ -21,7 +21,7 @@ const initialFormState = {
 export const Login = () => {
   const [formState, setFormState] = useState<InputType>(initialFormState);
   const { setUser, setLoggedIn } = useUserContext();
-  const { push } = useHistory();
+  // const { push } = useHistory();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.currentTarget;

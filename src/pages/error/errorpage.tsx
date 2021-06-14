@@ -1,4 +1,4 @@
-import { FlashError } from '../../components/flash-error/flash-error.component';
+import { FlashError } from '../../components/errors/flash-error.component';
 
 const ErrorPage = () => {
   return (

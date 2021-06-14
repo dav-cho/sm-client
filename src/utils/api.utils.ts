@@ -21,3 +21,25 @@ export const postApiData = async (endPoint: apiEndPoint, formData: {}) => {
     console.log('~ err', err);
   }
 };
+
+// type PutPatchApiMethod = 'put' | 'patch';
+
+interface PutPatchApiProps {
+  endPoint: apiEndPoint;
+  method: 'put' | 'patch';
+  formData: {};
+}
+
+export const putPatchApiData = async ({
+  endPoint,
+  method,
+  formData,
+}: PutPatchApiProps) => {
+  try {
+    const res = await axios({ url: `${endPoint}/`, method, data: formData });
+
+    return res;
+  } catch (err) {
+    console.log('~ err', err);
+  }
+};

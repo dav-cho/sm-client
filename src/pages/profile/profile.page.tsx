@@ -1,10 +1,12 @@
 import { useUserContext } from '../../contexts/user.context';
 
+import { Profile } from '../../components/users/profile.component';
+
 const ProfilePage = () => {
   const { user } = useUserContext();
-  console.log('~ user from profile page', user)
+  console.log('~ user from profile page', user);
 
-  return <h1>profile page</h1>;
+  return <>{user && <Profile user={user} />}</>;
 };
 
 export default ProfilePage;

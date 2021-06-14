@@ -1,4 +1,4 @@
-import './access-denied.styles.scss';
+import './styles/access-denied.styles.scss';
 
 export const AccessDenied = () => (
   <div className="access-denied-container">

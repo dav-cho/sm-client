@@ -1,33 +1,22 @@
-import { useHistory } from 'react-router-dom';
-
 import { Post } from '../../types/index.types';
 import { formatDate } from '../../utils/helpers';
 
-import { PostDetail } from '../post-detail/post-detail.component';
+import './styles/post-detail.styles.scss';
 
-import './post-card.styles.scss';
-
-type PostCardProps = {
+interface PostDetailProps {
   post: Post;
 };
 
-export const PostCard = ({ post }: PostCardProps) => {
-  const { push } = useHistory();
-
-  const handleDetailClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    console.log('~ handleDetailClick');
-    push(`posts/${post.id}`);
-    return <PostDetail post={post} />;
-  };
-
+export const PostDetail = ({post}: PostDetailProps) => {
   const handleEditClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     //
   };
 
   return (
-    <div className="post-card-container">
-      <div className="post-card-info">
-        <h3 className="post-card-title">post info:</h3>
+    <div className="post-detail-container">
+      <h2>post detail</h2>
+      <div className="post-detail-info">
+        <h3 className="post-detail-title">post info:</h3>
         <ul>
           <li>
             id: <b>{post.id}</b>
@@ -42,18 +31,18 @@ export const PostCard = ({ post }: PostCardProps) => {
             date: <b>{formatDate(post.published)}</b>
           </li>
         </ul>
-        <div className="post-reactions">
+        <div className="reactions">
           <h4>post reactions:</h4>
         </div>
       </div>
-      <div className="post-card-body">
+      <div className="post-detail-body">
         <h3>{post.title}</h3>
         <p>{post.body}</p>
       </div>
-      <div className="post-card-extras">
+      <div className="post-detail-extras">
         {post.comments &&
           post.comments.map(comment => (
-            <div key={comment.id} className="post-card-comments">
+            <div key={comment.id} className="post-detail-comments">
               <ul>
                 <li>
                   <strong>{comment.title}</strong>
@@ -67,13 +56,10 @@ export const PostCard = ({ post }: PostCardProps) => {
             </div>
           ))}
       </div>
-      <div className="post-card-button-container">
-        <button className="post-card-button">like/react</button>
-        <button className="post-card-button">comment</button>
-        <button className="post-card-button" onClick={handleDetailClick}>
-          detail
-        </button>
-        <button onClick={handleEditClick} className="post-card-button">
+      <div className="post-detail-button-container">
+        <button className="post-detail-button">like/react</button>
+        <button className="post-detail-button">comment</button>
+        <button onClick={handleEditClick} className="post-detail-button">
           edit
         </button>
       </div>

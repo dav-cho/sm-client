@@ -1,8 +1,8 @@
 import { Post } from '../../types/index.types';
 
-import { PostCard } from '../post-card/post-card.component';
+import { PostCard } from './post-card.component';
 
-import './post-list.styles.scss';
+import './styles/post-list.styles.scss';
 
 type PostListProps = {
   postsList: Post[];

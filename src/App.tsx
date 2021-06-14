@@ -7,8 +7,8 @@ import PostsPage from './pages/posts/posts.page';
 import HomePage from './pages/home/home.page';
 import AboutPage from './pages/about/about.page';
 import ProfilePage from './pages/profile/profile.page';
+import AccountsPage from './pages/accounts/accounts.page';
 import RegisterPage from './pages/register/register.page';
-import WelcomePage from './pages/welcome/welcome.page';
 import LoginPage from './pages/login/login.page';
 import LogoutPage from './pages/logout/logout.page';
 import ErrorPage from './pages/error/errorpage';
@@ -37,8 +37,8 @@ function App() {
       <Route exact path="/" component={HomePage} />
       <Route path="/about" component={AboutPage} />
       <Route path="/profile" component={ProfilePage} />
+      <Route path="/accounts" component={AccountsPage} />
       <Route path="/register" component={RegisterPage} />
-      <Route path="/welcome" component={WelcomePage} />
       <Route path="/login" component={LoginPage} />
       <Route path="/logout" component={LogoutPage} />
       <Route path="/error" component={ErrorPage} />

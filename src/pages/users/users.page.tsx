@@ -4,8 +4,8 @@ import { User } from '../../types/index.types';
 import { getUsers } from '../../utils/user.utils';
 import { formatDate } from '../../utils/helpers';
 
-import { CardList } from '../../components/card-list/card-list.component';
-import { AccessDenied } from '../../components/access-denied/access-denied.component';
+import { CardList } from '../../components/generics/cards/card-list.component';
+import { AccessDenied } from '../../components/errors/access-denied.component';
 
 import './users.styles.scss';
 

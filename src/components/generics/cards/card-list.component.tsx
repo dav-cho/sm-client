@@ -1,4 +1,6 @@
-import { Card } from '../card/card.component';
+import { Card } from './card.component';
+
+import './styles/card-list.styles.scss'
 
 type CardListProps<apiListData> = {
   listData: apiListData[];

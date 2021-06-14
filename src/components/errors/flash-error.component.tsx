@@ -1,4 +1,4 @@
-import './flash-error.styles.scss';
+import './styles/flash-error.styles.scss';
 
 export const FlashError = () => {
   return (
